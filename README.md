@@ -30,3 +30,15 @@ Requires Python 3.11+. No external dependencies — uses only the standard libra
 ## Background
 
 I work as a Vehicle Integration Engineer on autonomous Class 8 trucks, with daily experience in CAN/J1939 diagnostics, UDS, and fault analysis using Vector CANoe/CANalyzer and DiagnosticLink. This project is part of building my Python skills for scripting and log analysis, applied directly to problems from my domain.
+
+## Tests
+
+Unit tests using pytest, covering:
+- CSV generation (file creation, row count, header correctness)
+- Statistics calculation against known, hand-verified input values
+- Anomaly detection: confirms known outliers are flagged, and confirms clean data produces no false positives
+
+Run with:
+```
+python3 -m pytest -v
+```

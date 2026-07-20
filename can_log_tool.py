@@ -44,6 +44,7 @@ def analyze_can_log(filename):
             data_by_id[msg_id].append(value)
 
     print("\n--- CAN Log Analysis ---")
+    stats = {}
     for msg_id, values in sorted(data_by_id.items()):
         count = len(values)
         mean_val = sum(values) / count
@@ -53,12 +54,22 @@ def analyze_can_log(filename):
         variance = sum((v - mean_val) ** 2 for v in values) / count
         std_dev = variance ** 0.5
 
+        stats[msg_id] = {
+            "count": count,
+            "mean": mean_val,
+            "min": min_val,
+            "max": max_val,
+            "std_dev": std_dev,
+        }
+
         print(f"\nMessage ID {msg_id}:")
         print(f"  Count: {count}")
         print(f"  Mean:  {mean_val:.2f}")
         print(f"  Min:   {min_val:.2f}")
         print(f"  Max:   {max_val:.2f}")
         print(f"  StdDev:{std_dev:.2f}")
+
+    return stats
 def detect_anomalies(filename, threshold_std=2.0):
     # First pass: compute mean and std dev per message_id
     data_by_id = {}
